@@ -1,17 +1,12 @@
 <?php
+
 /**
- * This Software is the property of OXID eSales and is protected
- * by copyright law - it is NOT Freeware.
+ * This Software is not freeware and is not free of charge or in the public domain.
+ * It is created by Keywan Ghadami and Johannes Ackermann and is protected
+ * by copyright law.
  *
- * Any unauthorized use of this software without a valid license key
- * is a violation of the license agreement and will be prosecuted by
- * civil and criminal law.
+ * Any unauthorized use of this software will be prosecuted by civil and criminal law.
  *
- * @author        OXID Professional Services
- * @link          https://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2020
- *
- * @package actesting
  * Created: 2020-07-22, ja
  */
 
@@ -44,8 +39,8 @@ class UtilsServer extends UtilsServer_parent
         $sDomain = null,
         $blToSession = true,
         $blSecure = false,
-        $blHttpOnly = true)
-    {
+        $blHttpOnly = true
+    ) {
         // Adopted from core -->
         if ($blToSession && !$this->isAdmin()) {
             $this->_saveSessionCookie($sName, $sValue, $iExpire, $sPath, $sDomain);
@@ -62,8 +57,7 @@ class UtilsServer extends UtilsServer_parent
 
         // Call parent if mode is "off"
         $config = Registry::getConfig();
-        if (!$config->getConfigParam('spsamesite_on'))
-        {
+        if (!$config->getConfigParam('spsamesite_on')) {
             parent::setOxCookie($sName, $sValue, $iExpire, $sPath, $sDomain, $blToSession, $blSecure, $blHttpOnly);
         }
 
@@ -71,26 +65,18 @@ class UtilsServer extends UtilsServer_parent
         $configParam = $config->getConfigParam('spsamesite_fallback_mode');
 
         // Unknown cookies
-        if ($configParam == 'none')
-        {
+        if ($configParam == 'none') {
             $samesite = Cookie::SAMESITE_NONE;
-        }
-        elseif ($configParam == 'lax')
-        {
+        } elseif ($configParam == 'lax') {
             $samesite = Cookie::SAMESITE_LAX;
         }
 
         // For cookies that are configured
-        if (in_array($sName, $config->getConfigParam('spsamesite_none')))
-        {
+        if (in_array($sName, $config->getConfigParam('spsamesite_none'))) {
             $samesite = Cookie::SAMESITE_NONE;
-        }
-        elseif (in_array($sName, $config->getConfigParam('spsamesite_lax')))
-        {
+        } elseif (in_array($sName, $config->getConfigParam('spsamesite_lax'))) {
             $samesite = Cookie::SAMESITE_LAX;
-        }
-        elseif (in_array($sName, $config->getConfigParam('spsamesite_strict')))
-        {
+        } elseif (in_array($sName, $config->getConfigParam('spsamesite_strict'))) {
             $samesite = Cookie::SAMESITE_STRICT;
         }
 
